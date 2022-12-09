@@ -4,6 +4,7 @@ body {
 }
 canvas {
   background-color: pink;
+  display: none;
   /* width: 600px;
     height: 300px; */
 }
@@ -12,4 +13,32 @@ canvas {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.first_landing_container {
+  display: none;
+}
+
+.first_landing {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+.first_landing .title {
+  font-size: xx-large;
+  font-weight: 600;
+
+  margin-bottom: 40px;
+}
+
+.first_landing .startBtn {
+  font-size: large;
+  padding: 10px 20px;
+}
+
+.visible {
+  display: block;
 }

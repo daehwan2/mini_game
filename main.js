@@ -40,7 +40,7 @@ class Monster {
   constructor() {
     this.x = MONSTER_INIT_X;
     this.y = MONSTER_INIT_Y;
-    this.speed = 5;
+    this.speed;
     this.width = 30;
     this.height = 30;
   }
@@ -61,6 +61,7 @@ const Score = {
   y: 20,
 
   draw(value) {
+    console.log(value);
     ctx.font = "italic bold 15px Arial, sans-serif";
     ctx.fillStyle = "black";
     ctx.fillText(`점수: ${value}`, this.x, this.y);
@@ -80,6 +81,7 @@ const EndText = {
   },
 };
 
+let isEnd = false;
 let timer = 0;
 let monsters = [];
 let isJump = false;
@@ -99,21 +101,16 @@ const isCrash = (left_obj, right_obj) => {
     right_obj.x - (left_obj.x + left_obj.width) <= 0 &&
     right_obj.y - (left_obj.y + left_obj.height) <= 0
   ) {
-    // 가로 충돌
-    cancelAnimationFrame(animation_id);
-    timer = 0;
-    isJump = false;
-    jumpTimer = 0;
-    monsterCreateTimer = 0;
-    preventJump = false;
-    stage = 1;
-    monsters = [];
-    console.log("충돌");
     EndText.draw();
+    isEnd = true;
+    cancelAnimationFrame(animation_id);
   }
 };
 
 const frameExecute = () => {
+  if (timer === -1) {
+    return;
+  }
   animation_id = requestAnimationFrame(frameExecute);
   timer++;
   monsterCreateTimer++;
@@ -138,7 +135,6 @@ const frameExecute = () => {
     }
 
     monster.speed = 4 + stage;
-    console.log(monster.speed);
     monster.move();
     monster.draw();
   });
@@ -163,15 +159,40 @@ const frameExecute = () => {
   Score.draw(timer);
 };
 
-frameExecute();
-
 window.addEventListener("keypress", (e) => {
   console.log(e);
   if (e.code === "Space") {
     if (!preventJunmp) {
       isJump = true;
     }
-  } else if (e.code === "Enter") {
+  } else if (isEnd && e.code === "Enter") {
+    timer = 0;
+    isJump = false;
+    jumpTimer = 0;
+    monsterCreateTimer = 0;
+    preventJump = false;
+    stage = 1;
+    monsters = [];
+    isEnd = false;
     frameExecute();
   }
+});
+
+const startBtn = document.querySelector(".startBtn");
+
+startBtn.addEventListener("click", () => {
+  canvas.classList.add("visible");
+  const firstLanding = document.querySelector(".first_landing_container");
+  firstLanding.classList.remove("visible");
+
+  timer = 0;
+  isJump = false;
+  jumpTimer = 0;
+  monsterCreateTimer = 0;
+  preventJump = false;
+  stage = 1;
+  monsters = [];
+  isEnd = false;
+
+  frameExecute();
 });
