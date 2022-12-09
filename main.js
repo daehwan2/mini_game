@@ -75,11 +75,13 @@ const EndText = {
     ctx.font = "italic bold 40px Arial, sans-serif";
     ctx.fillStyle = "black";
     ctx.fillText(`게임 끝`, this.x, this.y);
+    ctx.font = "italic bold 20px Arial, sans-serif";
+    ctx.fillText(`재시작:Enter`, this.x, this.y + 40);
   },
 };
 
 let timer = 0;
-const monsters = [];
+let monsters = [];
 let isJump = false;
 let jumpTimer = 0;
 let monsterCreateTimer = 0;
@@ -99,6 +101,13 @@ const isCrash = (left_obj, right_obj) => {
   ) {
     // 가로 충돌
     cancelAnimationFrame(animation_id);
+    timer = 0;
+    isJump = false;
+    jumpTimer = 0;
+    monsterCreateTimer = 0;
+    preventJump = false;
+    stage = 1;
+    monsters = [];
     console.log("충돌");
     EndText.draw();
   }
@@ -157,7 +166,12 @@ const frameExecute = () => {
 frameExecute();
 
 window.addEventListener("keypress", (e) => {
-  if (!preventJunmp) {
-    isJump = true;
+  console.log(e);
+  if (e.code === "Space") {
+    if (!preventJunmp) {
+      isJump = true;
+    }
+  } else if (e.code === "Enter") {
+    frameExecute();
   }
 });
