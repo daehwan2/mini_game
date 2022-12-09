@@ -8,33 +8,61 @@ const MONSTER_INIT_Y = 300;
 let animation_id;
 let isStart = false;
 
+const joggingImage = new Image();
+joggingImage.src = "assets/jogging.png";
+
 const heroImage = new Image();
 
 const monsterImage = new Image();
 monsterImage.src = "assets/mon.jpeg";
 
-const Hero = {
-  x: 20,
-  y: HERO_INIT_Y,
-  width: 40,
-  height: 100,
+class Hero {
+  constructor() {
+    this.x = 20;
+    this.y = HERO_INIT_Y;
+    this.width = 40;
+    this.height = 100;
 
-  jumpSpeed: 5,
+    this.jogging_width = 128;
+    this.jogging_height = 110;
+    this.jogging_x = 0;
+    this.jogging_y = 50;
+    this.jogging_dx = this.x;
+    this.jogging_dy = this.y + this.width;
+    this.jogging_dwidth = this.width;
+    this.jogging_dheight = this.height - this.width;
+    this.jumpSpeed = 5;
+  }
 
   up() {
     this.y -= this.jumpSpeed;
-  },
+    this.jogging_dy = this.y + this.width;
+  }
 
   down() {
     this.y += this.jumpSpeed;
-  },
+    this.jogging_dy = this.y + this.width;
+  }
 
   draw() {
     ctx.fillStyle = "green";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.drawImage(
+      joggingImage,
+      this.jogging_x,
+      this.jogging_y,
+      this.jogging_width,
+      this.jogging_height,
+      this.jogging_dx,
+      this.jogging_dy,
+      this.jogging_dwidth,
+      this.jogging_dheight
+    );
     ctx.drawImage(heroImage, this.x, this.y, this.width, this.width);
-  },
-};
+  }
+}
+
+const hero = new Hero();
 
 class Monster {
   constructor() {
@@ -42,7 +70,7 @@ class Monster {
     this.width = 40;
     this.height = 40;
     this.x = MONSTER_INIT_X;
-    this.y = MONSTER_INIT_Y + (Hero.height - this.height);
+    this.y = MONSTER_INIT_Y + (hero.height - this.height);
   }
 
   move() {
@@ -61,7 +89,7 @@ const Score = {
   y: 20,
 
   draw(value) {
-    console.log(value);
+    // console.log(value);
     ctx.font = "italic bold 15px Arial, sans-serif";
     ctx.fillStyle = "black";
     ctx.fillText(`점수: ${value}`, this.x, this.y);
@@ -117,6 +145,14 @@ const frameExecute = () => {
   monsterCreateTimer++;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
+  //캐릭터 달리기
+  if (timer % 3 === 0) {
+    hero.jogging_x += hero.jogging_width;
+    if (hero.jogging_x > joggingImage.width - hero.jogging_width) {
+      hero.jogging_x = 0;
+    }
+  }
+
   const monster_create_time = getRandomInt(45, 55);
   if (monsterCreateTimer % monster_create_time === 0) {
     monsterCreateTimer = 0;
@@ -125,7 +161,7 @@ const frameExecute = () => {
   }
 
   monsters.forEach((monster, index, monsters) => {
-    isCrash(Hero, monster);
+    isCrash(hero, monster);
 
     if (monster.x < 0) {
       monsters.splice(index, 1);
@@ -142,10 +178,10 @@ const frameExecute = () => {
 
   if (isJump) {
     jumpTimer++;
-    Hero.up();
+    hero.up();
     preventJunmp = true;
-  } else if (Hero.y < HERO_INIT_Y) {
-    Hero.down();
+  } else if (hero.y < HERO_INIT_Y) {
+    hero.down();
   } else {
     preventJunmp = false;
   }
@@ -156,7 +192,7 @@ const frameExecute = () => {
 
   // 스테이지 업
 
-  Hero.draw();
+  hero.draw();
   Score.draw(timer);
 };
 
