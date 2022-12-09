@@ -2,17 +2,26 @@ html,
 body {
   height: 100%;
 }
+html {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  width: 800px;
+}
 canvas {
   background-color: pink;
   display: none;
-  /* width: 600px;
-    height: 300px; */
+  /* width: 100%; */
+  /* height: 100%; */
 }
 .container {
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: orange;
 }
 
 .first_landing_container {
@@ -37,6 +46,56 @@ canvas {
 .first_landing .startBtn {
   font-size: large;
   padding: 10px 20px;
+}
+
+.choice_image_landing_container {
+  display: none;
+  width: 100%;
+  height: 100%;
+}
+
+.choice_image_landing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+.choice_image_landing .title {
+  font-size: xx-large;
+  font-weight: 600;
+
+  padding: 20px 0;
+}
+
+.choice_image_landing .image_list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  list-style: none;
+  padding: 0;
+}
+
+.choice_image_landing .image_list .image_item {
+  cursor: pointer;
+  transition: 500ms;
+
+  margin: 0 10px;
+}
+
+.choice_image_landing .image_list .image_item:hover {
+  transform: scale(1.2);
+}
+
+.choice_image_landing .image_list .image_item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 40%;
 }
 
 .visible {

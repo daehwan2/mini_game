@@ -1,23 +1,23 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-const HERO_INIT_Y = 200;
+const HERO_INIT_Y = 300;
 
 const MONSTER_INIT_X = canvas.width;
-const MONSTER_INIT_Y = 200 + 20;
+const MONSTER_INIT_Y = 300;
 
 let animation_id;
+let isStart = false;
 
 const heroImage = new Image();
-heroImage.src = "./hero.JPG";
 
 const monsterImage = new Image();
-monsterImage.src = "./mon.jpeg";
+monsterImage.src = "assets/mon.jpeg";
 
 const Hero = {
-  x: 10,
+  x: 20,
   y: HERO_INIT_Y,
-  width: 30,
-  height: 50,
+  width: 40,
+  height: 100,
 
   jumpSpeed: 5,
 
@@ -32,17 +32,17 @@ const Hero = {
   draw() {
     ctx.fillStyle = "green";
     ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.drawImage(heroImage, this.x, this.y, this.width, this.height);
+    ctx.drawImage(heroImage, this.x, this.y, this.width, this.width);
   },
 };
 
 class Monster {
   constructor() {
-    this.x = MONSTER_INIT_X;
-    this.y = MONSTER_INIT_Y;
     this.speed;
-    this.width = 30;
-    this.height = 30;
+    this.width = 40;
+    this.height = 40;
+    this.x = MONSTER_INIT_X;
+    this.y = MONSTER_INIT_Y + (Hero.height - this.height);
   }
 
   move() {
@@ -103,6 +103,7 @@ const isCrash = (left_obj, right_obj) => {
   ) {
     EndText.draw();
     isEnd = true;
+    isStart = false;
     cancelAnimationFrame(animation_id);
   }
 };
@@ -159,31 +160,21 @@ const frameExecute = () => {
   Score.draw(timer);
 };
 
+// 게임할때 이벤트 걸기
 window.addEventListener("keypress", (e) => {
-  console.log(e);
-  if (e.code === "Space") {
+  if (isStart && e.code === "Space") {
     if (!preventJunmp) {
       isJump = true;
     }
   } else if (isEnd && e.code === "Enter") {
-    timer = 0;
-    isJump = false;
-    jumpTimer = 0;
-    monsterCreateTimer = 0;
-    preventJump = false;
-    stage = 1;
-    monsters = [];
-    isEnd = false;
-    frameExecute();
+    firstLanding.classList.add("visible");
+    canvas.classList.remove("visible");
   }
 });
 
-const startBtn = document.querySelector(".startBtn");
-
-startBtn.addEventListener("click", () => {
+//시작하기 함수
+const startGame = () => {
   canvas.classList.add("visible");
-  const firstLanding = document.querySelector(".first_landing_container");
-  firstLanding.classList.remove("visible");
 
   timer = 0;
   isJump = false;
@@ -193,6 +184,33 @@ startBtn.addEventListener("click", () => {
   stage = 1;
   monsters = [];
   isEnd = false;
+  isStart = true;
 
   frameExecute();
+};
+
+// 첫번째 렌더링 화면
+const startBtn = document.querySelector(".startBtn");
+const firstLanding = document.querySelector(".first_landing_container");
+const secondLanding = document.querySelector(".choice_image_landing_container");
+
+startBtn.addEventListener("click", () => {
+  firstLanding.classList.remove("visible");
+  secondLanding.classList.add("visible");
+});
+
+// 캐릭터 선택 화면
+const characters = document.querySelectorAll(".image_item");
+
+const onClickCharacter = (e) => {
+  const character = e.currentTarget;
+  heroImage.src = character.querySelector("img").src;
+
+  secondLanding.classList.remove("visible");
+
+  startGame();
+};
+
+characters.forEach((character) => {
+  character.addEventListener("click", onClickCharacter);
 });
