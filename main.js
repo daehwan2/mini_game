@@ -13,8 +13,41 @@ joggingImage.src = "assets/jogging.png";
 
 const heroImage = new Image();
 
+const floorImage = new Image();
+floorImage.src = "assets/floor.png";
+
+const skyImage = new Image();
+skyImage.src = "assets/sky.png";
+
+const monsterImages = [];
 const monsterImage = new Image();
+const monsterImage2 = new Image();
+const monsterImage3 = new Image();
+const monsterImage4 = new Image();
+
 monsterImage.src = "assets/mon.jpeg";
+monsterImage2.src = "https://itemscout.io/svg/logo-symbol.svg";
+monsterImage3.src = "assets/monster3.jpeg";
+monsterImage4.src = "https://pandarank.net/public/images/logo-new-white.svg";
+
+monsterImages.push(monsterImage, monsterImage2, monsterImage3, monsterImage4);
+
+const drawBackground = () => {
+  ctx.drawImage(skyImage, 0, 0, skyImage.width, 620, 0, 0, canvas.width, 300);
+  // ctx.fillStyle = "yellow";
+  // ctx.fillRect(0, 400, 800, 500 - 400);
+  ctx.drawImage(
+    floorImage,
+    0,
+    1700,
+    floorImage.width,
+    430,
+    0,
+    380,
+    canvas.width,
+    500 - 400 + 20
+  );
+};
 
 class Hero {
   constructor() {
@@ -46,7 +79,7 @@ class Hero {
 
   draw() {
     ctx.fillStyle = "green";
-    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillRect(this.x, this.y, this.width - 10, this.height - 10);
     ctx.drawImage(
       joggingImage,
       this.jogging_x,
@@ -71,6 +104,8 @@ class Monster {
     this.height = 40;
     this.x = MONSTER_INIT_X;
     this.y = MONSTER_INIT_Y + (hero.height - this.height);
+    this.image =
+      monsterImages[Math.floor(Math.random() * monsterImages.length)];
   }
 
   move() {
@@ -78,9 +113,10 @@ class Monster {
   }
 
   draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.drawImage(monsterImage, this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
+
+    ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
 }
 
@@ -126,8 +162,8 @@ function getRandomInt(min, max) {
 
 const isCrash = (left_obj, right_obj) => {
   if (
-    right_obj.x - (left_obj.x + left_obj.width) <= 0 &&
-    right_obj.y - (left_obj.y + left_obj.height) <= 0
+    right_obj.x - (left_obj.x + left_obj.width - 10) <= 0 &&
+    right_obj.y - (left_obj.y + left_obj.height - 10) <= 0
   ) {
     EndText.draw();
     isEnd = true;
@@ -141,9 +177,13 @@ const frameExecute = () => {
     return;
   }
   animation_id = requestAnimationFrame(frameExecute);
+
   timer++;
   monsterCreateTimer++;
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  //배경 그리기
+  drawBackground();
 
   //캐릭터 달리기
   if (timer % 3 === 0) {
@@ -167,7 +207,7 @@ const frameExecute = () => {
       monsters.splice(index, 1);
     }
 
-    if (timer % 400 === 0) {
+    if (timer % 500 === 0) {
       stage++;
     }
 
@@ -196,7 +236,6 @@ const frameExecute = () => {
   Score.draw(timer);
 };
 
-// 게임할때 이벤트 걸기
 window.addEventListener("keypress", (e) => {
   if (isStart && e.code === "Space") {
     if (!preventJunmp) {
