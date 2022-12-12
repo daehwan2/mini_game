@@ -47,11 +47,6 @@ canvas {
   margin-bottom: 40px;
 }
 
-.first_landing .startBtn {
-  font-size: large;
-  padding: 10px 20px;
-}
-
 .choice_image_landing_container {
   display: none;
   width: 100%;

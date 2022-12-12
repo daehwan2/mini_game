@@ -131,12 +131,12 @@ class Monster {
 }
 
 const Score = {
-  x: 500,
+  x: 600,
   y: 20,
 
   draw(value) {
     // console.log(value);
-    ctx.font = "italic bold 15px Arial, sans-serif";
+    ctx.font = "italic bold 30px Arial, sans-serif";
     ctx.fillStyle = "black";
     ctx.fillText(`점수: ${value}`, this.x, this.y);
   },
