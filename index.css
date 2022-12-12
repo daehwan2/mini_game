@@ -91,12 +91,18 @@ canvas {
   transform: scale(1.2);
 }
 
+.choice_image_landing .image_list .image_item .no-image,
 .choice_image_landing .image_list .image_item img {
   width: 60px;
   height: 60px;
   border-radius: 40%;
+  background-color: lightGray;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .visible {
-  display: block;
+  display: block !important;
 }

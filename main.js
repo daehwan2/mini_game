@@ -274,14 +274,21 @@ const startGame = () => {
   frameExecute();
 };
 
-// 첫번째 렌더링 화면
 const startBtn = document.querySelector(".startBtn");
 const firstLanding = document.querySelector(".first_landing_container");
-const secondLanding = document.querySelector(".choice_image_landing_container");
+const secondLanding = document.querySelector(".second_landing_container");
+const selectBtn = document.querySelector(".selectBtn");
+const thirdLanding = document.querySelector(".choice_image_landing_container");
 
 startBtn.addEventListener("click", () => {
   firstLanding.classList.remove("visible");
   secondLanding.classList.add("visible");
+  console.log(secondLanding);
+});
+
+selectBtn.addEventListener("click", () => {
+  secondLanding.classList.remove("visible");
+  thirdLanding.classList.add("visible");
 });
 
 // 캐릭터 선택 화면
@@ -289,10 +296,14 @@ const characters = document.querySelectorAll(".image_item");
 
 const onClickCharacter = (e) => {
   const character = e.currentTarget;
-  heroImage.src = `${character
-    .querySelector("img")
-    .src.slice(0, -5)}-removebg-preview.png`;
-  secondLanding.classList.remove("visible");
+
+  if (character.querySelector("img")) {
+    heroImage.src = `${character
+      .querySelector("img")
+      .src.slice(0, -5)}-removebg-preview.png`;
+  } else {
+  }
+  thirdLanding.classList.remove("visible");
 
   startGame();
 };

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="select.css" />
     <link rel="stylesheet" href="button.css" />
   </head>
   <body>
@@ -24,6 +25,34 @@
         </div>
       </div>
 
+      <div class="second_landing_container">
+        <div class="select_container">
+          <div class="title">누구신가요?</div>
+          <select name="" id="select1" onchange="onChangeSelect1(this)">
+            <option value="대표님">😎대표님</option>
+            <option value="경영관리파트">🦪경영관리파트</option>
+            <option value="지원파트">🥮지원파트</option>
+            <option value="말랑하니">🍡말랑하니</option>
+            <option value="패브릭">🍚패브릭</option>
+            <option value="루미블린">🍤루미블린</option>
+            <option value="본분">🍼본분</option>
+            <option value="잼먹">🍽잼먹</option>
+            <option value="앤드코어">🧴앤드코어</option>
+            <option value="디자인">🎨디자인</option>
+            <option value="물류">📦물류</option>
+            <option value="IT">💻IT</option>
+          </select>
+
+          <select name="" id="select2">
+            <option value="박성준">박성준</option>
+          </select>
+
+          <a class="btn btn--diagonal btn--orange selectBtn" href="#"
+            >선택완료</a
+          >
+        </div>
+      </div>
+
       <div class="choice_image_landing_container">
         <div class="choice_image_landing">
           <div class="title">캐릭터 선택</div>
@@ -34,7 +63,8 @@
               <img src="assets/manage_01.jpeg" />
             </li>
             <li class="image_item">
-              <img src="assets/manage_용호.jpeg" />
+              <!-- <img src="assets/manage_용호.jpeg" /> -->
+              <div class="no-image">용호님</div>
             </li>
             <li class="image_item">
               <img src="assets/manage_02.jpeg" />
@@ -75,7 +105,8 @@
               <img src="assets/mal_03.jpeg" />
             </li>
             <li class="image_item">
-              <img src="assets/mal_보현님.jpeg" />
+              <!-- <img src="assets/mal_보현님.jpeg" /> -->
+              <div class="no-image">보현님</div>
             </li>
           </ul>
 
@@ -88,7 +119,8 @@
               <img src="assets/fab_02.jpeg" />
             </li>
             <li class="image_item">
-              <img src="assets/fab_수정.jpeg" />
+              <!-- <img src="assets/fab_수정.jpeg" /> -->
+              <div class="no-image">수정님</div>
             </li>
           </ul>
 
@@ -189,7 +221,8 @@
               <img src="assets/des_04.jpeg" />
             </li>
             <li class="image_item">
-              <img src="assets/des_미소.jpeg" />
+              <!-- <img src="assets/des_미소.jpeg" /> -->
+              <div class="no-image">미소님</div>
             </li>
           </ul>
 
@@ -233,6 +266,6 @@
       <canvas id="canvas" width="800" height="500"></canvas>
     </div>
     <script src="main.js"></script>
-    <script src="button.js"></script>
+    <script src="select.js"></script>
   </body>
 </html>

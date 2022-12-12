@@ -1,0 +1,36 @@
+.second_landing_container {
+  display: none;
+
+  width: 100%;
+  height: 100%;
+}
+
+.second_landing_container .title {
+  margin-bottom: 40px;
+}
+
+.select_container {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+select {
+  width: 300px;
+  border: 2px solid #f0b15d;
+  color: #f0b15d;
+  font-size: 20px;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 20px;
+}
+#select1 {
+  margin-bottom: 20px;
+}
+#select2 {
+  margin-bottom: 20px;
+}
