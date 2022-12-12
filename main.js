@@ -27,7 +27,7 @@ const monsterImage4 = new Image();
 
 monsterImage.src = "assets/mon.jpeg";
 monsterImage2.src = "https://itemscout.io/svg/logo-symbol.svg";
-monsterImage3.src = "assets/monster3.jpeg";
+monsterImage3.src = "assets/monster3.png";
 monsterImage4.src = "https://pandarank.net/public/images/logo-new-white.svg";
 
 monsterImages.push(monsterImage, monsterImage2, monsterImage3, monsterImage4);
@@ -91,7 +91,17 @@ class Hero {
       this.jogging_dwidth,
       this.jogging_dheight
     );
-    ctx.drawImage(heroImage, this.x, this.y, this.width, this.width);
+    ctx.drawImage(
+      heroImage,
+      0,
+      0,
+      heroImage.width,
+      heroImage.width,
+      this.x - 5,
+      this.y - 6,
+      70,
+      70
+    );
   }
 }
 
@@ -279,8 +289,9 @@ const characters = document.querySelectorAll(".image_item");
 
 const onClickCharacter = (e) => {
   const character = e.currentTarget;
-  heroImage.src = character.querySelector("img").src;
-
+  heroImage.src = `${character
+    .querySelector("img")
+    .src.slice(0, -5)}-removebg-preview.png`;
   secondLanding.classList.remove("visible");
 
   startGame();
