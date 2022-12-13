@@ -203,7 +203,7 @@ const frameExecute = () => {
     }
   }
 
-  const monster_create_time = getRandomInt(45, 55);
+  const monster_create_time = getRandomInt(55, 60);
   if (monsterCreateTimer % monster_create_time === 0) {
     monsterCreateTimer = 0;
     const monster1 = new Monster();
@@ -221,7 +221,7 @@ const frameExecute = () => {
       stage++;
     }
 
-    monster.speed = 4 + stage;
+    monster.speed = 4 + stage / 2;
     monster.move();
     monster.draw();
   });
@@ -302,6 +302,7 @@ const onClickCharacter = (e) => {
       .querySelector("img")
       .src.slice(0, -5)}-removebg-preview.png`;
   } else {
+    hero;
   }
   thirdLanding.classList.remove("visible");
 
