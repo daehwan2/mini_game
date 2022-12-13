@@ -257,6 +257,10 @@ window.addEventListener("keypress", (e) => {
     firstLanding.classList.add("visible");
     canvas.classList.remove("visible");
   }
+
+  if (e.code === "KeyF") {
+    document.documentElement.requestFullscreen();
+  }
 });
 
 //시작하기 함수
