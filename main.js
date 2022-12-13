@@ -5,6 +5,8 @@ const HERO_INIT_Y = 300;
 const MONSTER_INIT_X = canvas.width;
 const MONSTER_INIT_Y = 300;
 
+let playerName = "박성준";
+
 let animation_id;
 let isStart = false;
 
@@ -97,10 +99,10 @@ class Hero {
       0,
       heroImage.width,
       heroImage.width,
-      this.x - 5,
+      this.x - (heroImage.dataset.noimage === "true" ? 0 : 5),
       this.y - 6,
-      70,
-      70
+      heroImage.dataset.noimage === "true" ? 50 : 70,
+      heroImage.dataset.noimage === "true" ? 50 : 70
     );
   }
 }
@@ -132,7 +134,7 @@ class Monster {
 
 const Score = {
   x: 600,
-  y: 20,
+  y: 30,
 
   draw(value) {
     // console.log(value);
@@ -297,13 +299,14 @@ const characters = document.querySelectorAll(".image_item");
 const onClickCharacter = (e) => {
   const character = e.currentTarget;
 
-  if (character.querySelector("img")) {
-    heroImage.src = `${character
-      .querySelector("img")
-      .src.slice(0, -5)}-removebg-preview.png`;
-  } else {
-    hero;
-  }
+  const imgSrc = character.querySelector("img").src;
+  heroImage.src = imgSrc.includes("png")
+    ? `${imgSrc.slice(0, -4)}-removebg-preview.png`
+    : `${imgSrc.slice(0, -5)}-removebg-preview.png`;
+
+  heroImage.dataset.noimage = character.querySelector("img").dataset.noimage;
+
+  console.log(heroImage.dataset.noimage);
   thirdLanding.classList.remove("visible");
 
   startGame();

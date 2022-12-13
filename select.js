@@ -85,9 +85,20 @@ const onChangeSelect1 = (e) => {
 
   const select2 = document.querySelector("#select2");
 
-  select2_options.forEach((option) => {
+  select2_options.forEach((option, idx) => {
+    if (idx === 0) {
+      playerName = option;
+    }
     options_string += `
 <option value=${option}>${option}</option>`;
     select2.innerHTML = options_string;
   });
+
+  console.log(playerName);
+};
+
+const onChangeSelect2 = (e) => {
+  playerName = e.value;
+
+  console.log(playerName);
 };
