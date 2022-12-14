@@ -11,13 +11,14 @@ html {
   justify-content: center;
 }
 body {
-  width: 800px;
+  /* width: 800px; */
+  width: 100%;
 }
 canvas {
   background-color: pink;
   display: none;
-  /* width: 100%; */
-  /* height: 100%; */
+  width: 100%;
+  height: 100%;
 }
 .container {
   height: 100%;
