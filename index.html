@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="select.css" />
     <link rel="stylesheet" href="button.css" />
+    <link rel="stylesheet" href="rank.css" />
   </head>
   <body>
     <div class="container">
@@ -20,7 +21,9 @@
             <a class="btn btn--diagonal btn--orange startBtn" href="#"
               >시작하기</a
             >
-            <a class="btn btn--diagonal btn--orange" href="#">순위보기</a>
+            <a class="btn btn--diagonal btn--orange rankBtn" href="#"
+              >순위보기</a
+            >
           </div>
         </div>
       </div>
@@ -259,8 +262,27 @@
         </div>
       </div>
 
+      <div class="rank_landing_container">
+        <div class="rank_landing">
+          <div class="title">랭킹</div>
+
+          <div class="rank_list">
+            <div class="rank_item_title">
+              <div>순위</div>
+              <div>이름</div>
+              <div>점수</div>
+            </div>
+          </div>
+
+          <a class="btn btn--diagonal btn--orange homeBtn" href="#">뒤로가기</a>
+        </div>
+      </div>
+
       <canvas id="canvas" width="800" height="500"></canvas>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="rank.js"></script>
     <script src="main.js"></script>
     <script src="select.js"></script>
   </body>

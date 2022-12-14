@@ -261,6 +261,11 @@ window.addEventListener("keypress", (e) => {
   if (e.code === "KeyF") {
     document.documentElement.requestFullscreen();
   }
+
+  if (e.code === "KeyO") {
+    openResult = !openResult;
+    getRank();
+  }
 });
 
 //시작하기 함수
@@ -285,6 +290,9 @@ const firstLanding = document.querySelector(".first_landing_container");
 const secondLanding = document.querySelector(".second_landing_container");
 const selectBtn = document.querySelector(".selectBtn");
 const thirdLanding = document.querySelector(".choice_image_landing_container");
+const rankingLanding = document.querySelector(".rank_landing_container");
+const rankBtn = document.querySelector(".rankBtn");
+const homeBtn = document.querySelector(".homeBtn");
 
 startBtn.addEventListener("click", () => {
   firstLanding.classList.remove("visible");
@@ -297,6 +305,17 @@ selectBtn.addEventListener("click", () => {
   thirdLanding.classList.add("visible");
 });
 
+rankBtn.addEventListener("click", () => {
+  firstLanding.classList.remove("visible");
+  rankingLanding.classList.add("visible");
+
+  getRank();
+});
+
+homeBtn.addEventListener("click", () => {
+  firstLanding.classList.add("visible");
+  rankingLanding.classList.remove("visible");
+});
 // 캐릭터 선택 화면
 const characters = document.querySelectorAll(".image_item");
 

@@ -1,0 +1,47 @@
+.rank_landing_container {
+  display: none;
+
+  height: 100%;
+}
+
+.rank_landing {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 60px;
+  width: 600px;
+}
+
+.rank_landing .title {
+  margin-bottom: 20px;
+}
+
+.rank_item_title,
+.rank_item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rank_item_title {
+  margin-bottom: 10px;
+  border-bottom: 1px solid black;
+}
+
+.rank_item {
+  margin-bottom: 10px;
+}
+
+.rank_item_title div,
+.rank_item div {
+  flex-basis: 100px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-img {
+  height: 100%;
+}
