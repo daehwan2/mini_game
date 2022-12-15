@@ -5,6 +5,11 @@ const HERO_INIT_Y = 300;
 const MONSTER_INIT_X = canvas.width;
 const MONSTER_INIT_Y = 300;
 
+const TRIGGER1 = 400;
+const TRIGGER2 = 600;
+const TRIGGER3 = 800;
+const TRIGGER4 = 3000;
+
 let playerName = "박성준";
 
 let animation_id;
@@ -125,8 +130,8 @@ class Monster {
   }
 
   draw() {
-    // ctx.fillStyle = "red";
-    // ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = "red";
+    ctx.fillRect(this.x + 10, this.y, this.width, this.height);
 
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
@@ -174,7 +179,7 @@ function getRandomInt(min, max) {
 
 const isCrash = (left_obj, right_obj) => {
   if (
-    right_obj.x - (left_obj.x + left_obj.width - 10) <= 0 &&
+    right_obj.x + 10 - (left_obj.x + left_obj.width - 10) <= 0 &&
     right_obj.y - (left_obj.y + left_obj.height - 10) <= 0
   ) {
     EndText.draw();
@@ -185,6 +190,20 @@ const isCrash = (left_obj, right_obj) => {
     setRank({ name: playerName, score: timer, game: "말랑RUN" });
 
     cancelAnimationFrame(animation_id);
+  }
+};
+
+const minCalc = (score) => {
+  if (score > TRIGGER4) {
+    return 45;
+  } else if (score > TRIGGER3) {
+    return 50;
+  } else if (score > TRIGGER2) {
+    return 55;
+  } else if (score > TRIGGER1) {
+    return 60;
+  } else {
+    return 70;
   }
 };
 
@@ -208,9 +227,9 @@ const frameExecute = () => {
       hero.jogging_x = 0;
     }
   }
-
-  const monster_create_time = getRandomInt(55, 60);
-  if (monsterCreateTimer % monster_create_time === 0) {
+  const min = minCalc(timer);
+  const monster_create_time = getRandomInt(min, min + 5);
+  if (monsterCreateTimer >= monster_create_time) {
     monsterCreateTimer = 0;
     const monster1 = new Monster();
     monsters.push(monster1);
@@ -223,11 +242,11 @@ const frameExecute = () => {
       monsters.splice(index, 1);
     }
 
-    if (timer % 500 === 0) {
+    if (timer % 200 === 0) {
       stage++;
     }
 
-    monster.speed = 4 + stage / 2;
+    monster.speed = 5 + stage / 4;
     monster.move();
     monster.draw();
   });
