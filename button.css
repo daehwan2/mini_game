@@ -198,6 +198,12 @@
   align-items: center;
 }
 
-.startBtn {
+.startBtn,
+.rankBtn,
+.selectBtn {
   margin-bottom: 15px;
+  font-size: 30px;
+  padding: 20px;
+
+  border: 4px solid #f28e0a;
 }

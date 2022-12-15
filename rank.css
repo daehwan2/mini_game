@@ -30,12 +30,13 @@
 
 .rank_item {
   margin-bottom: 10px;
+  font-size: xx-large;
 }
 
 .rank_item_title div,
 .rank_item div {
   flex-basis: 100px;
-  height: 40px;
+  height: 60px;
 
   display: flex;
   align-items: center;
