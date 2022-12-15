@@ -39,8 +39,37 @@ monsterImage4.src = "https://pandarank.net/public/images/logo-new-white.svg";
 
 monsterImages.push(monsterImage, monsterImage2, monsterImage3, monsterImage4);
 
+class Sky {
+  constructor(isFirst) {
+    if (!isFirst) {
+      this.x = canvas.width;
+    } else {
+      this.x = 0;
+    }
+  }
+
+  move() {
+    this.x--;
+  }
+
+  draw() {
+    ctx.drawImage(
+      skyImage,
+      0,
+      0,
+      skyImage.width,
+      620,
+      this.x - 10,
+      0,
+      canvas.width + 10,
+      300
+    );
+  }
+}
+
 const drawBackground = () => {
-  ctx.drawImage(skyImage, 0, 0, skyImage.width, 620, 0, 0, canvas.width, 300);
+  // ctx.drawImage(skyImage, 0, 0, skyImage.width, 620, 0, 0, canvas.width, 300);
+
   // ctx.fillStyle = "yellow";
   // ctx.fillRect(0, 400, 800, 500 - 400);
   ctx.drawImage(
@@ -130,8 +159,8 @@ class Monster {
   }
 
   draw() {
-    ctx.fillStyle = "red";
-    ctx.fillRect(this.x + 10, this.y, this.width, this.height);
+    // ctx.fillStyle = "red";
+    // ctx.fillRect(this.x + 10, this.y, this.width, this.height);
 
     ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
   }
@@ -206,6 +235,13 @@ const minCalc = (score) => {
     return 70;
   }
 };
+let skys = [];
+
+const firstSky = new Sky(true);
+skys.push(firstSky);
+
+const secondSky = new Sky(false);
+skys.push(secondSky);
 
 const frameExecute = () => {
   if (timer === -1) {
@@ -218,6 +254,20 @@ const frameExecute = () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   //배경 그리기
+  if (skys[0].x <= 0 && skys.length < 3) {
+    const sky = new Sky(false);
+    skys.push(sky);
+  }
+  skys.forEach((sky, index, skys) => {
+    if (sky.x + canvas.width < 0) {
+      skys.splice(index, 1);
+    }
+    sky.move();
+    sky.draw();
+  });
+
+  console.log(skys);
+
   drawBackground();
 
   //캐릭터 달리기
