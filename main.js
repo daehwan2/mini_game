@@ -180,6 +180,10 @@ const isCrash = (left_obj, right_obj) => {
     EndText.draw();
     isEnd = true;
     isStart = false;
+
+    // 점수 저장 setScore
+    setRank({ name: playerName, score: timer, game: "말랑RUN" });
+
     cancelAnimationFrame(animation_id);
   }
 };

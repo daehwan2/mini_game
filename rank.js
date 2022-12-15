@@ -41,3 +41,18 @@ const getRank = () =>
               <div>점수</div>
             </div>` + htmlString;
   });
+
+/**
+ *
+ * @param {
+ * name:string;
+ * game:string;
+ * score:number;
+ * } body
+ */
+const setRank = (body) => {
+  console.log(body);
+  axios.post("http://192.168.0.97:10010/score", body).then((res) => {
+    console.log(res);
+  });
+};
